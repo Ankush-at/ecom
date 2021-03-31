@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ORDER</title>
+</head>
+<body>
+{% block content %}
+<center>
+<table>
+<tr><td>Welcome : <b>{{user}}</tr></td></b><br>
+<tr><td>Email:<b>{{email}}</tr></td></b>
+</table>
+<form method="post" action="/order/" >
+			{% csrf_token %}		 
+			 
+<table>
+		<tr>
+			<th>
+				User Detail :
+			</th>
+		</tr>
+		<tr>		     
+			<td><input value="" type="text" name="user_address" id="address" placeholder="Enter address">
+			</td>
+		</tr>
+
+</table>
+				<table border="3" cellpadding="10" cellspacing="10">
+					<tr>
+						<th>NAME</th>
+						<th>IMAGE</th>
+						<th>Quantity</th>
+						<th>Sub-Total</th>
+					</tr>
+	{% for cart in cart %}
+        <tr>
+		      <td>{{cart.product.name}}</td>
+
+		      <td>
+			  {{cart.quantity}}
+		 	  </td>
+		     <td>
+		     	<img src="{{cart.product.image.url}}" height="60px;">
+		     </td>
+		     <td>
+				{{cart.subtotal}}
+		     </td>
+		    
+			 
+        </tr>
+
+    {% endfor %}
+		<tr>
+			<td align="center" colspan="4" id="grand_total" >Grand-total:{{grand_total}}</td>
+		</tr>
+			<tr><td align="center" colspan="4">
+				<button class="btn btn-primary btn-lg" >CONTINUE</button>
+				</td>
+			</tr>
+	
+			 <input value="{{grand_total}}" name="grand_total" id="grand-total" hidden>
+
+      	</table>
+		<table>
+	
+		</table>      
+		</form>	
+</center>		  
+{% endblock %}
+</body>
+</html>

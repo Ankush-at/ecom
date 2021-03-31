@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ADD TO CART</title>
+</head>
+<body>
+	{% block content %}
+
+		<center>
+			<h3>CART DETAILS</h3>
+			<div id="content">
+	    <form method="post" action="/cart/" >
+			{% csrf_token %}		 
+			 
+				<table border="3">
+					<tr>
+						<th>ID</th>
+						<th>NAME</th>
+						<th>PRICE</th>
+						<th>PIMAGE</th>
+						<th>Quantity</th>
+						<th>Sub-Total</th>
+						<th>Select</th>
+					</tr>
+	{% for cart in cart %}
+        <tr>
+		      <td id="id" name='id'>{{cart.id}}</td>
+
+		      <td>{{cart.product.name}}</td>
+
+		      <td id="price_{{cart.id}}" name = 'cart_id' >{{cart.product.price}}</td>
+
+		      <td><a><img alt="Image will be uploaded soon"  name="cart.image" src="{{cart.product.image.url}}" height="80px;"/></a></td> 
+
+		      <td>
+			    <input class="quantity" id="quantity_{{cart.id}}" name = 'cart_quantity' type='number' min="1" max="5" value="1">
+		 	  </td>
+		     
+		     <td>
+		        <div id="subtotal_{{cart.id}}" name='cart_subtotal' value={{cart.product.price}} >{{cart.product.price}}</div>
+		     </td>
+		    
+		      <td><a href="/delete/{{cart.id}}/">Remove</a></td>
+			 <input value="" name="cart_id" id="cart_id{{cart.id}}" hidden>
+		     
+		     <input value="" name="total-quantity" id="total-quantity{{cart.id}}" hidden>
+		     
+		     <input value="" name="sub-total" id="sub-total{{cart.id}}" hidden>
+			 
+        </tr>
+    {% endfor %}
+	
+			 <input value="" name="grand-total" id="grand-total{{cart.id}}" hidden>		     	      
+			<button class="btn btn-primary btn-lg" >Place Order</button>
+			Grand-total:<p class="grandtotal" name = 'grandtotal'></p>
+      </table>
+		</form>	  
+
+    </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+             update();
+             $('.quantity').change(function() {
+               update();
+             });
+           });
+          function update()
+          {
+          	// debugger;
+            var sum = 0.0;
+            $('.quantity').each(function() {
+          	// debugger;
+              
+              var quantity = parseInt(this.value);
+              var id = this.getAttribute('id');
+              var id = id.split('_')[1];
+              var cart_id = parseInt(id)
+              var cart_idd = "#cart_id"+id; 
+              $(cart_idd).val(cart_id);
+              var sub_id = "#subtotal_"+id;
+              var total_quantity = "#total-quantity"+id;
+              var sub_total = "#sub-total"+id
+              var price_id = "#price_"+id;
+              var price = parseInt($(price_id).text());
+              var amount = (quantity*price)
+              sum+=amount;
+
+				$(sub_id).text(amount);
+				parseInt($(total_quantity).val(quantity));
+				parseInt($(sub_total).val(amount));
+				});
+            
+            $('.grandtotal').text(sum);
+            $('#grand-total').val(sum);
+
+          };
+
+</script>
+</html>
+
+{% endblock %}

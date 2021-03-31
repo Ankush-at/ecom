@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HOME</title>
+</head>
+<body>
+{% block content %}
+<br>
+<table border="1" cellpadding="30;">
+		<tr>
+			<td>ID</td>
+			<td>PNAME</td>
+			<td>PPRICE</td>
+			<td>PDESC</td>
+			<td>PIMAGE</td>
+			<td colspan="1" >SELECT OPTION</td>
+		</tr>
+		{% for i in product %}
+			<tr>
+				<td>{{i.id}}</td>
+				<td>{{i.name}}</td>
+				<td>{{i.price}}</td>
+				<td>{{i.description}}</td>
+				<td><img src="{{i.image.url}}" height="80px;"></td>
+				<td><a href="{{curl}}addtocart/{{i.id}}/">ADDTOCART</a></td>
+				<!-- TODO -->
+			</tr>
+		{% endfor %}
+</table>
+
+</body>
+{% endblock %}
+</html>
+<!-- <td><a href="{{curl}}order/">ORDER</a></td> -->

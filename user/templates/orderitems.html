@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PLACED_ORDER</title>
+</head>
+<body>
+
+{% block content %}
+<center>
+				<h3>Order History</h3><br>
+	<table border="3" cellpadding="3" cellspacing="3">
+					<tr>
+						<th>User Name</th>
+						<th>PRODUCT Name</th>
+						<th>IMAGE</th>
+						<th>ADDRESS</th>
+						<th>Quantity</th>
+						<th>Sub-Total</th>
+						<!-- <th>EMAIL</th> -->
+					</tr>
+	{% for order in orderitems %}
+        <tr>
+		    <td>
+		    	{{order.user.username}}
+		    </td>			 
+		      <td>{{order.orderitems.name}}</td>
+
+		     <td>
+			  	<img src="{{order.orderitems.image.url}}" height='80px;'>
+		 	  </td>
+		      <td>
+			  {{order.user_address}}
+		 	  </td>
+		     
+		     <td>
+				{{order.quantity}}
+		     </td>
+		     <td>
+				{{order.subtotal}}
+		     </td>
+
+        </tr>
+    {% endfor %}
+
+      </table>
+		</form>
+</center>		
+{% endblock %}
+</body>
+</html>

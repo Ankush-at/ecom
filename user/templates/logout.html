@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>LOGOUT</title>
+</head>
+<body>
+	{% block content %}
+	<h3>LOGOUT</h3>
+		<form method="POST">
+			{{ form.as_p }}
+			{% csrf_token %}
+			<b>Sure you want to logout ?</b>
+			<
+			<a href="/">LOGIN</a>
+
+		</form>
+	}
+</body>
+{% endblock %}
+</html>
