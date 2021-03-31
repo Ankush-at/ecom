@@ -25,12 +25,10 @@ def addtocart(request,pk):
 	product = models.Product.objects.get(pk=pk)
 	cart = models.Cart.objects.get_or_create(product=product,user=request.user)
 	return redirect(curl+'cart/')
- 		# user = models.Cart.objects.all()
 
 
 @login_required
 def cart(request,*args):
-	 # import pdb;pdb.set_trace()
 	if request.method=='POST':
 	 	email = request.user.email
 	 	user = request.user.username
@@ -52,7 +50,7 @@ def cart(request,*args):
 
 
 def order(request):
-	# import pdb;pdb.set_trace()
+
 	username =request.user.username
 	user = request.user
 
