@@ -26,6 +26,23 @@ def addtocart(request,pk):
 	cart = models.Cart.objects.get_or_create(product=product,user=request.user)
 	return redirect(curl+'cart/')
 
+@login_required
+def addtocart(request,pk):
+	cart = models.Cart.objects.filter(user=request.user)
+	if cart:
+		cart.delete()
+	product = models.Product.objects.get(pk=pk)
+	cart = models.Cart.objects.get_or_create(product=product,user=request.user)
+	return redirect(curl+'cart/')	
+	
+@login_required
+def addtocart(request,pk):
+	cart = models.Cart.objects.filter(user=request.user)
+	if cart:
+		cart.delete()
+	product = models.Product.objects.get(pk=pk)
+	cart = models.Cart.objects.get_or_create(product=product,user=request.user)
+	return redirect(curl+'cart/')
 
 @login_required
 def cart(request,*args):
